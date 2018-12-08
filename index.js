@@ -134,7 +134,7 @@ bot.on("message", async message => {
                 message.reply("تم تخطي الاغنية بنجاح.");
                 dispatcher.end();
 				setTimeout(() => voiceChannel.leave(), 15000);
-				message.channel.sendMessage("انتهى الطابور")
+				message.channel.sendMessage("**انتهى الطابور**")
 
             } else {
                 if (skippers.indexOf(message.author.id) === -1) {
@@ -169,12 +169,8 @@ bot.on("message", async message => {
 				} else {
 					message.reply("you need to type !queue clear without following arguments.");
 				}
-			} else if (args.length > 0 && args[0] == 'shuffle') {
-				let tempA = [songsQueue[0]];
-				let tempB = songsQueue.slice(1);
-				songsQueue = tempA.concat(shuffle(tempB));
-				message.channel.send("Queue has been shuffled. Type !queue to see the new queue!");
-			} else { // if there are songs in the queue and queue commands is without arguments display current queue
+			} 
+			 else { // if there are songs in the queue and queue commands is without arguments display current queue
 				let format = "```"
 				for (const songName in songsQueue) {
 					if (songsQueue.hasOwnProperty(songName)) {

@@ -128,28 +128,23 @@ bot.on("message", async message => {
 			}
 			break;
 
-		case "s":
-			console.log(queue);
-			if (queue.length === 1) {
-				message.reply("تم تخطي الاغنية بنجاح.");
-				dispatcher.end();
-				setTimeout(() => voiceChannel.leave(), 1000);
-			} else if {
-				if (skippers.indexOf(message.author.id) === -1) {
-					skippers.push(message.author.id);
-					skipRequest++;
+			case "s":
+            console.log(queue);
+             if (queue.length === 1) {
+                message.reply("تم تخطي الاغنية بنجاح.");
+                dispatcher.end();
+                setTimeout(() => voiceChannel.leave(), 1000);
+            } else {
+                if (skippers.indexOf(message.author.id) === -1) {
+                    skippers.push(message.author.id);
+                    skipRequest++;
 
-						skipSong(message);
-						message.reply("تم تخطي الاغنية بنجاح");
-					} 
-				}
-				else {
-					if (skippers.indexOf(message.author.id) === -1) {
-						message.reply("لا توجد اغنية ليتم تخطيها");
-					}
-				}
-					
-			break;
+                        skipSong(message);
+                        message.reply("تم تخطي الاغنية بنجاح");
+                    } else return message.reply('لاتوجد اغنية لأتخطاها')
+            }
+                
+            break;
 
 		case "queue":
 			if (queue.length === 0) { // if there are no songs in the queue, send message that queue is empty

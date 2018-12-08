@@ -92,7 +92,7 @@ bot.on("message", async message => {
 			}
 			break;
 
-		case ['play','p']:
+		case "play":
 			if (args.length == 0 && queue.length > 0) {
 				if (!message.member.voiceChannel) {
 					message.reply("you need to be in a voice channel to play music. Please, join one and try again.");
@@ -132,7 +132,7 @@ bot.on("message", async message => {
 			}
 			break;
 
-		case ['skip','s']:
+		case "skip":
 			console.log(queue);
 			if (queue.length === 1) {
 				message.reply("queue is empty now, type !play [song name] or !yt [song name] to play/search new songs!");
@@ -155,7 +155,7 @@ bot.on("message", async message => {
 			}
 			break;
 
-		case ['skip','s']:
+		case "queue":
 			if (queue.length === 0) { // if there are no songs in the queue, send message that queue is empty
 				message.reply("queue is empty, type !play or !yt to play/search new songs!");
 			} else if (args.length > 0 && args[0] == 'remove') { // if arguments are provided and first one is remove
@@ -200,7 +200,7 @@ bot.on("message", async message => {
 			}
 			break;
 
-		case ['repeat','rep']:
+		case "repeat":
 			if (isPlaying) {
 				queue.splice(1, 0, queue[0]);
 				songsQueue.splice(1, 0, songsQueue[0]);
@@ -258,7 +258,7 @@ bot.on("message", async message => {
 			}
 			break;
 
-		case ['v','vol','volume']:
+		case "vol":
 			if (args.length == 0 && dispatcher) {
 				message.reply(`current volume is ${dispatcher.volume}. Type !vol [percentage - 0 to 200] to set music volume.`);
 			} else if (args.length > 0 && regVol.test(args) == true && dispatcher) {
@@ -273,8 +273,44 @@ bot.on("message", async message => {
 			break;
 
 		case "help":
-			message.channel.send("```cs\n" + commandsList + "\n```");
-			break;
+		const embed = new Discord.RichEmbed() 
+		.setColor("RANDOM")
+		.setDescription(`
+		<a:Dance:512758054195036160> <a:dance:512761910714957854> <a:pepe1:512762416157818890>
+  
+  
+  ${prefix}p ⇏ لتشغيل أغنية برآبط أو بأسم
+  
+  ${prefix}s ⇏ لتجآوز الأغنية الحآلية
+  
+  ${prefix}pause ⇏ إيقآف الأغنية مؤقتا
+  
+  ${prefix}resume ⇏ لموآصلة الإغنية بعد إيقآفهآ مؤقتا
+  
+  ${prefix}v ⇏ لتغيير درجة الصوت 100 - 0
+  
+  ${prefix}stop ⇏ لإخرآج البوت من الروم
+  
+  ${prefix}np ⇏ لمعرفة الأغنية المشغلة حآليا
+  
+  ${prefix}q ⇏ لمعرفة قآئمة التشغيل
+  
+  •••【 أوامر خاصة بالبوت لا تحاول تلعب فيهم يا فلة ..】•••
+  
+  
+  ${prefix}b ⇏ تغيير بلاينق البوت
+  
+  ${prefix}z ⇏ تغيير أسم البوت
+  
+  ${prefix}g ⇏ تغير صورة البوت
+  
+  ${prefix}t ⇏ تغيير تويتش البوت
+  
+  `)
+	 message.channel.sendEmbed(embed)
+	  
+	
+			   break;
 
 		case "commands":
 			message.channel.send("```cs\n" + commandsList + "\n```");
@@ -391,3 +427,4 @@ function shuffle(queue) {
 /*-------------------*/
 
 bot.login(process.env.BOT_TOKEN);
+//help

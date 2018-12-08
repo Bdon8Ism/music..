@@ -9,8 +9,6 @@ const fetchVideoInfo = require("youtube-info");
 const prefix = botSettings.prefix;
 const ytApiKey = botSettings.ytApiKey;
 const youtube = new YouTube(ytApiKey);
-const dispatcher = songsQueue.connection.playStream(ytdl(song.url))
-const songsQueue = queue.get(msg.guild.id);//حقوق IiKaReeeM ...
 
 const bot = new Discord.Client({
 	disableEveryone: true
@@ -20,14 +18,19 @@ let commandsList = fs.readFileSync('commands.md', 'utf8');
 
 /* MUSIC VARIABLES */
 let queue = []; // Songs queue
+let songsQueue = []; // Song names stored for queue command
 let isPlaying = false; // Is music playing
+let dispatcher = null;
 let voiceChannel = null;
-
+let skipRequest = 0; // Stores the number of skip requests 
+let skippers = []; // Usernames of people who voted to skip the song
+let ytResultList = []; // Video names results from yt command
 let ytResultAdd = []; // For storing !add command choice
 /* MUSIC VARIABLES END */
 let re = /^(?:[1-5]|0[1-5]|10)$/; // RegEx for allowing only 1-5 while selecting song from yt results
 let regVol = /^(?:([1][0-9][0-9])|200|([1-9][0-9])|([0-9]))$/; // RegEx for volume control
 let youtubeSearched = false; // If youtube has been searched (for !add command)
+let selectUser; // Selecting user from guild
 
 bot.on("ready", async () => {
 	console.log(`Bot is ready! ${bot.user.username}`);
@@ -130,12 +133,16 @@ bot.on("message", async message => {
 			break;
 
 		case "skip":
-			if (!message.member.voiceChannel) return message.channel.send('أنت لست بروم صوتي .');//حقوق IiKaReeeM ...
-			if (!songsQueue) return message.channel.send('لا يتوفر مقطع لتجآوزه');//حقوق IiKaReeeM ...
-			songsQueue.connection.dispatcher.end('تم تجآوز هذآ المقطع');//حقوق IiKaReeeM ...
-			return undefined;//حقوق IiKaReeeM ...
-	
-		
+			console.log(queue);
+			if (queue.length === 1) {
+				message.reply("لا توجد اغنية حتى يتم تخطيها");
+				dispatcher.end();
+				setTimeout(() => voiceChannel.leave(), 1000);
+			}
+						message.reply("تم تخطي الاغنية بنجاح");
+					
+			break;
+
 		case "queue":
 			if (queue.length === 0) { // if there are no songs in the queue, send message that queue is empty
 				message.reply("queue is empty, type !play or !yt to play/search new songs!");

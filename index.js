@@ -134,7 +134,7 @@ bot.on("message", async message => {
 				message.reply("تم تخطي الاغنية بنجاح.");
 				dispatcher.end();
 				setTimeout(() => voiceChannel.leave(), 1000);
-			} else {
+			} if else {
 				if (skippers.indexOf(message.author.id) === -1) {
 					skippers.push(message.author.id);
 					skipRequest++;
@@ -143,7 +143,12 @@ bot.on("message", async message => {
 						message.reply("تم تخطي الاغنية بنجاح");
 					} 
 				}
-			
+				else {
+					if (skippers.indexOf(message.author.id) === -1) {
+						message.reply("لا توجد اغنية ليتم تخطيها");
+					}
+				}
+					
 			break;
 
 		case "queue":

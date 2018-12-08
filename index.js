@@ -21,17 +21,13 @@ let commandsList = fs.readFileSync('commands.md', 'utf8');
 let queue = []; // Songs queue
 let songsQueue = []; // Song names stored for queue command
 let isPlaying = false; // Is music playing
-let dispatcher = null;
 let voiceChannel = null;
-let skipRequest = 0; // Stores the number of skip requests 
-let skippers = []; // Usernames of people who voted to skip the song
-let ytResultList = []; // Video names results from yt command
+
 let ytResultAdd = []; // For storing !add command choice
 /* MUSIC VARIABLES END */
 let re = /^(?:[1-5]|0[1-5]|10)$/; // RegEx for allowing only 1-5 while selecting song from yt results
 let regVol = /^(?:([1][0-9][0-9])|200|([1-9][0-9])|([0-9]))$/; // RegEx for volume control
 let youtubeSearched = false; // If youtube has been searched (for !add command)
-let selectUser; // Selecting user from guild
 
 bot.on("ready", async () => {
 	console.log(`Bot is ready! ${bot.user.username}`);

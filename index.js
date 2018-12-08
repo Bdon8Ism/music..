@@ -95,14 +95,14 @@ bot.on("message", async message => {
 		case "play":
 			if (args.length == 0 && queue.length > 0) {
 				if (!message.member.voiceChannel) {
-					message.reply("you need to be in a voice channel to play music. Please, join one and try again.");
+					message.reply("لازم تكون بروم صوتي :)");
 				} else {
 					isPlaying = true;
 					playMusic(queue[0], message);
 					message.reply(`now playing **${songsQueue[0]}**`);
 				}
 			} else if (args.length == 0 && queue.length == 0) {
-				message.reply("queue is empty now, type !play [song name] or !yt [song name] to play/search new songs!");
+				message.reply("اكتب اسم الاغنية");
 			} else if (queue.length > 0 || isPlaying) {
 				getID(args).then(id => {
 					if (id) {
@@ -112,7 +112,7 @@ bot.on("message", async message => {
 							songsQueue.push(ytResults[0]);
 						}).catch(error => console.log(error));
 					} else {
-						message.reply("sorry, couldn't find the song.");
+						message.reply("أسف لم اجد اغنية بهذا الاسم");
 					}
 				}).catch(error => console.log(error));
 			} else {
@@ -126,35 +126,19 @@ bot.on("message", async message => {
 							songsQueue.push(ytResults[0]);
 						}).catch(error => console.log(error));
 					} else {
-						message.reply("sorry, couldn't find the song.");
+						message.reply("أسف . لم اجد اغنية بهذا الاسم");
 					}
 				}).catch(error => console.log(error));
 			}
 			break;
 
 		case "skip":
-			console.log(queue);
-			if (queue.length === 1) {
-				message.reply("queue is empty now, type !play [song name] or !yt [song name] to play/search new songs!");
-				dispatcher.end();
-				setTimeout(() => voiceChannel.leave(), 1000);
-			} else {
-				if (skippers.indexOf(message.author.id) === -1) {
-					skippers.push(message.author.id);
-					skipRequest++;
-
-					if (skipRequest >= Math.ceil((voiceChannel.members.size - 1) / 2)) {
-						skipSong(message);
-						message.reply("your skip has been added to the list. Skipping!");
-					} else {
-						message.reply(`your skip has been added to the list. You need **${Math.ceil((voiceChannel.members.size - 1) / 2) - skipRequest}** more to skip current song!`);
-					}
-				} else {
-					message.reply("you already voted to skip!");
-				}
-			}
-			break;
-
+			if (!msg.member.voiceChannel) return msg.channel.send('أنت لست بروم صوتي .');//حقوق IiKaReeeM ...
+			if (!serverQueue) return msg.channel.send('لا يتوفر مقطع لتجآوزه');//حقوق IiKaReeeM ...
+			serverQueue.connection.dispatcher.end('تم تجآوز هذآ المقطع');//حقوق IiKaReeeM ...
+			return undefined;//حقوق IiKaReeeM ...
+	
+		
 		case "queue":
 			if (queue.length === 0) { // if there are no songs in the queue, send message that queue is empty
 				message.reply("queue is empty, type !play or !yt to play/search new songs!");

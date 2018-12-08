@@ -191,6 +191,8 @@ bot.on("message", async message => {
 
 		case "repeat":
 			if (isPlaying) {
+				message.reply("repeating song");
+
 				queue.splice(1, 0, queue[0]);
 				songsQueue.splice(1, 0, songsQueue[0]);
 			}

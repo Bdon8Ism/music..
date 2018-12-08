@@ -134,7 +134,7 @@ bot.on("message", async message => {
 				message.reply("تم تخطي الاغنية بنجاح.");
 				dispatcher.end();
 				setTimeout(() => voiceChannel.leave(), 1000);
-			} if else {
+			} else {
 				if (skippers.indexOf(message.author.id) === -1) {
 					skippers.push(message.author.id);
 					skipRequest++;

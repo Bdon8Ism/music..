@@ -1,4 +1,3 @@
-const botSettings = require("./config.json");
 const Discord = require("discord.js");
 const axios = require("axios");
 const yt = require("ytdl-core");
@@ -6,15 +5,12 @@ const YouTube = require("simple-youtube-api");
 const fs = require("fs");
 const getYTID = require("get-youtube-id");
 const fetchVideoInfo = require("youtube-info");
-const prefix = botSettings.prefix;
-const ytApiKey = botSettings.ytApiKey;
+const prefix = "*";
+const ytApiKey = "AIzaSyD_hGr-A7TR77U3rqVDmINtnIreFld-q8w";
 const youtube = new YouTube(ytApiKey);
 
-const bot = new Discord.Client({
-	disableEveryone: true
-});
+const bot = new Discord.Client();
 
-let commandsList = fs.readFileSync('commands.md', 'utf8');
 
 /* MUSIC VARIABLES */
 let queue = []; // Songs queue
@@ -92,7 +88,7 @@ bot.on("message", async message => {
 			}
 			break;
 
-		case "play":
+		case "p":
 			if (args.length == 0 && queue.length > 0) {
 				if (!message.member.voiceChannel) {
 					message.reply("لازم تكون بروم صوتي :)");
@@ -132,10 +128,10 @@ bot.on("message", async message => {
 			}
 			break;
 
-		case "skip":
+		case "s":
 			console.log(queue);
 			if (queue.length === 1) {
-				message.reply("لا توجد اغنية حتى يتم تخطيها");
+				message.reply("تم تخطي الاغنية بنجاح.");
 				dispatcher.end();
 				setTimeout(() => voiceChannel.leave(), 1000);
 			} else {
@@ -253,7 +249,7 @@ bot.on("message", async message => {
 			}
 			break;
 
-		case "vol":
+		case "v":
 			if (args.length == 0 && dispatcher) {
 				message.reply(`current volume is ${dispatcher.volume}. Type !vol [percentage - 0 to 200] to set music volume.`);
 			} else if (args.length > 0 && regVol.test(args) == true && dispatcher) {
@@ -440,8 +436,11 @@ bot.on("message", message => {
 		.setDescription(`
 		<a:Dance:512758054195036160> <a:dance:512761910714957854> <a:pepe1:512762416157818890>
   
-  
-		*skip ⇏ لتخطي الاغنية الحالية
+		*p [song name] ⇏ لتشغيل اغنية
+		
+		*s ⇏ لتخطي الاغنية الحالية
+
+		*v [percentage] ⇏ لتحديد درجة الصوت
 
 		*queue ⇏ لرؤية الاغانية التي فالطابور
 		
@@ -457,7 +456,6 @@ bot.on("message", message => {
 		
 		*add [search result number] ⇏ لاضافة اغنية من قائمة البحث
 		
-		*vol [percentage] ⇏ لتحديد درجة الصوت
   `)
 	 message.channel.sendEmbed(embed)
 	}

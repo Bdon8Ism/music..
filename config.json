@@ -1,5 +1,4 @@
 {
-	"token": "YOUR DISCORD API TOKEN HERE",
-	"prefix": "!",
-	"ytApiKey": "YOUR YOUTUBE API TOKEN HERE"
+	"prefix": "*",
+	"ytApiKey": "AIzaSyD_hGr-A7TR77U3rqVDmINtnIreFld-q8w"
 }

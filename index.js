@@ -134,6 +134,7 @@ bot.on("message", async message => {
 
 		case "skip":
 			console.log(queue);
+			if (queue.length === 1) {
 				dispatcher.end();
 				setTimeout(() => voiceChannel.leave(), 1000);
 			}

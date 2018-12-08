@@ -93,8 +93,6 @@ bot.on("message", async message => {
 			break;
 
 		case "play":
-			const voiceChannel = message.member.voiceChannel;//حقوق IiKaReeeM ...
-        if (!voiceChannel) return message.channel.send('يجب ان تكون بروم صوتي');//حقوق IiKaReeeM ...
 			if (args.length == 0 && queue.length > 0) {
 				if (!message.member.voiceChannel) {
 					message.reply("you need to be in a voice channel to play music. Please, join one and try again.");

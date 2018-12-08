@@ -272,42 +272,15 @@ bot.on("message", async message => {
 			}
 			break;
 
-		case "help":
-		const embed = new Discord.RichEmbed() 
-		.setColor("RANDOM")
-		.setDescription(`
-		<a:Dance:512758054195036160> <a:dance:512761910714957854> <a:pepe1:512762416157818890>
-  
-  
-		*skip ⇏ لتخطي الاغنية الحالية
-
-		*queue ⇏ لرؤية الاغانية التي فالطابور
 		
-		*queue remove [song number] ⇏ لازالة الاغنية المحددة من الطابور
-		
-		*queue clear ⇏ لمسح كل الطابور
-		
-		*repeat ⇏ لتكرار الاغنية
-		
-		*stop ⇏ لأيقاف البوت 
-	
-		*yt [search term] ⇏ البحث فاليوتيوب وعرض اول 5 نتائج
-		
-		*add [search result number] ⇏ لاضافة اغنية من قائمة البحث
-		
-		*vol [percentage] ⇏ لتحديد درجة الصوت
-  `)
-	 message.channel.sendEmbed(embed)
-	  
-	
-			   break;
+			   
 
 		
 
 	}
 });
 
-/*--------------------------------*/
+/*--------------------------------*///join
 /* MUSIC CONTROL FUNCTIONS START */
 /*------------------------------*/
 function playMusic(id, message) {
@@ -412,6 +385,43 @@ function shuffle(queue) {
 /*---------------------*/
 /* MISC FUNCTIONS END */
 /*-------------------*/
+
+
+
+
+
+
+bot.on("message", message => {
+	if (message.content === "*help") {
+		const embed = new Discord.RichEmbed() 
+		.setColor("RANDOM")
+		.setDescription(`
+		<a:Dance:512758054195036160> <a:dance:512761910714957854> <a:pepe1:512762416157818890>
+  
+  
+		*skip ⇏ لتخطي الاغنية الحالية
+
+		*queue ⇏ لرؤية الاغانية التي فالطابور
+		
+		*queue remove [song number] ⇏ لازالة الاغنية المحددة من الطابور
+		
+		*queue clear ⇏ لمسح كل الطابور
+		
+		*repeat ⇏ لتكرار الاغنية
+		
+		*stop ⇏ لأيقاف البوت 
+	
+		*yt [search term] ⇏ البحث فاليوتيوب وعرض اول 5 نتائج
+		
+		*add [search result number] ⇏ لاضافة اغنية من قائمة البحث
+		
+		*vol [percentage] ⇏ لتحديد درجة الصوت
+  `)
+	 message.channel.sendEmbed(embed)
+	}
+	});
+
+
 
 bot.login(process.env.BOT_TOKEN);
 //help

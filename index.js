@@ -279,23 +279,23 @@ bot.on("message", async message => {
 		<a:Dance:512758054195036160> <a:dance:512761910714957854> <a:pepe1:512762416157818890>
   
   
-		!skip: لتخطي الاغنية الحالية
+		!skip ⇏ لتخطي الاغنية الحالية
 
-		!queue: لرؤية الاغانية التي فالطابور
+		!queue ⇏ لرؤية الاغانية التي فالطابور
 		
-		!queue remove [song number]: لازالة الاغنية المحددة من الطابور
+		!queue remove [song number] ⇏ لازالة الاغنية المحددة من الطابور
 		
-		!queue clear: لمسح كل الطابور
+		!queue clear ⇏ لمسح كل الطابور
 		
-		!repeat: لتكرار الاغنية
+		!repeat ⇏ لتكرار الاغنية
 		
-		!stop: لأيقاف البوت 
+		!stop ⇏ لأيقاف البوت 
 	
-		!yt [search term]: البحث فاليوتيوب وعرض اول 5 نتائج
+		!yt [search term] ⇏ البحث فاليوتيوب وعرض اول 5 نتائج
 		
-		!add [search result number]: لاضافة اغنية من قائمة البحث
+		!add [search result number] ⇏ لاضافة اغنية من قائمة البحث
 		
-		!vol [percentage]: لتحديد درجة الصوت
+		!vol [percentage] ⇏ لتحديد درجة الصوت
   `)
 	 message.channel.sendEmbed(embed)
 	  

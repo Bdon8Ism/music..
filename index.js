@@ -135,11 +135,19 @@ bot.on("message", async message => {
 		case "skip":
 			console.log(queue);
 			if (queue.length === 1) {
+				message.reply("لا توجد اغنية حتى يتم تخطيها");
 				dispatcher.end();
 				setTimeout(() => voiceChannel.leave(), 1000);
-			}
+			} else {
+				if (skippers.indexOf(message.author.id) === -1) {
+					skippers.push(message.author.id);
+					skipRequest++;
+
+						skipSong(message);
 						message.reply("تم تخطي الاغنية بنجاح");
-					
+					} 
+				}
+			
 			break;
 
 		case "queue":

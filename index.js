@@ -133,7 +133,9 @@ bot.on("message", async message => {
              if (queue.length === 1) {
                 message.reply("تم تخطي الاغنية بنجاح.");
                 dispatcher.end();
-                setTimeout(() => voiceChannel.leave(), 15000);
+				setTimeout(() => voiceChannel.leave(), 15000);
+				message.channel.sendMessage("انتهى الطابور")
+
             } else {
                 if (skippers.indexOf(message.author.id) === -1) {
                     skippers.push(message.author.id);

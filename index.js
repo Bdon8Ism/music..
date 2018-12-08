@@ -91,24 +91,24 @@ bot.on("message", async message => {
 		case "p":
 			if (args.length == 0 && queue.length > 0) {
 				if (!message.member.voiceChannel) {
-					message.reply("لازم تكون بروم صوتي :)");
+					message.sendMessage("لازم تكون بروم صوتي :)");
 				} else {
 					isPlaying = true;
 					playMusic(queue[0], message);
-					message.reply(`now playing **${songsQueue[0]}**`);
+					message.sendMessage(`now playing **${songsQueue[0]}**`);
 				}
 			} else if (args.length == 0 && queue.length == 0) {
-				message.reply("اكتب اسم الاغنية");
+				message.sendMessage("اكتب اسم الاغنية");
 			} else if (queue.length > 0 || isPlaying) {
 				getID(args).then(id => {
 					if (id) {
 						queue.push(id);
 						getYouTubeResultsId(args, 1).then(ytResults => {
-							message.reply(`added to queue **${ytResults[0]}**`);
+							message.sendMessage(`added to queue **${ytResults[0]}**`);
 							songsQueue.push(ytResults[0]);
 						}).catch(error => console.log(error));
 					} else {
-						message.reply("أسف لم اجد اغنية بهذا الاسم");
+						message.sendMessage("أسف لم اجد اغنية بهذا الاسم");
 					}
 				}).catch(error => console.log(error));
 			} else {
@@ -118,11 +118,11 @@ bot.on("message", async message => {
 						queue.push(id);
 						playMusic(id, message);
 						getYouTubeResultsId(args, 1).then(ytResults => {
-							message.reply(`now playing **${ytResults[0]}**`);
+							message.sendMessage(`now playing **${ytResults[0]}**`);
 							songsQueue.push(ytResults[0]);
 						}).catch(error => console.log(error));
 					} else {
-						message.reply("أسف . لم اجد اغنية بهذا الاسم");
+						message.sendMessage("أسف . لم اجد اغنية بهذا الاسم");
 					}
 				}).catch(error => console.log(error));
 			}
@@ -131,7 +131,7 @@ bot.on("message", async message => {
 			case "s":
             console.log(queue);
              if (queue.length === 1) {
-                message.reply("تم تخطي الاغنية بنجاح.");
+                message.sendMessage("تم تخطي الاغنية بنجاح.");
                 dispatcher.end();
 				setTimeout(() => voiceChannel.leave(), 15000);
 				message.channel.sendMessage("**انتهى الطابور**")
@@ -142,32 +142,32 @@ bot.on("message", async message => {
                     skipRequest++;
 
                         skipSong(message);
-                        message.reply("تم تخطي الاغنية بنجاح");
-                    } else return message.reply('لاتوجد اغنية لأتخطاها')
+                        message.sendMessage("تم تخطي الاغنية بنجاح");
+                    } else return message.sendMessage('لاتوجد اغنية لأتخطاها')
             }
                 
             break;
 
 		case "queue":
 			if (queue.length === 0) { // if there are no songs in the queue, send message that queue is empty
-				message.reply("queue is empty, type !play or !yt to play/search new songs!");
+				message.sendMessage("queue is empty, type !play or !yt to play/search new songs!");
 			} else if (args.length > 0 && args[0] == 'remove') { // if arguments are provided and first one is remove
 				if (args.length == 2 && args[1] <= queue.length) { // check if there are no more than 2 arguments and that second one is in range of songs number in queue
 					// then remove selected song from the queue
-					message.reply(`**${songsQueue[args[1] - 1]}** has been removed from the queue. Type !queue to see the current queue.`);
+					message.sendMessage(`**${songsQueue[args[1] - 1]}** has been removed from the queue. Type !queue to see the current queue.`);
 					queue.splice(args[1] - 1, 1);
 					songsQueue.splice(args[1] - 1, 1);
 				} else { // if there are more than 2 arguments and the second one is not in the range of songs number in queue, send message
-					message.reply(`you need to enter valid queued song number (1-${queue.length}).`);
+					message.sendMessage(`you need to enter valid queued song number (1-${queue.length}).`);
 				}
 			} else if (args.length > 0 && args[0] == 'clear') { // same as remove, only clears queue if clear is first argument
 				if (args.length == 1) {
 					// reseting queue and songsQueue, but leaving current song
-					message.reply("all upcoming songs have been removed from the queue. type !play or !yt to play/search new songs!");
+					message.sendMessage("all upcoming songs have been removed from the queue. type !play or !yt to play/search new songs!");
 					queue.splice(1);
 					songsQueue.splice(1);
 				} else {
-					message.reply("you need to type !queue clear without following arguments.");
+					message.sendMessage("you need to type !queue clear without following arguments.");
 				}
 			} 
 			 else { // if there are songs in the queue and queue commands is without arguments display current queue
@@ -193,7 +193,7 @@ bot.on("message", async message => {
 			if (isPlaying) {
 				queue.splice(1, 0, queue[0]);
 				songsQueue.splice(1, 0, songsQueue[0]);
-				message.reply(`**${songsQueue[0]}** will be played again.`);
+				message.sendMessage(`**${songsQueue[0]}** will be played again.`);
 			}
 			break;
 
@@ -205,7 +205,7 @@ bot.on("message", async message => {
 
 		case "yt":
 			if (args.length == 0) {
-				message.reply("you need to enter search term (!yt [search term]).");
+				message.sendMessage("you need to enter search term (!yt [search term]).");
 			} else {
 				message.channel.send("```Searching youtube...```");
 				getYouTubeResultsId(args, 5).then(ytResults => {
@@ -229,14 +229,14 @@ bot.on("message", async message => {
 		case "add":
 			if (youtubeSearched === true) {
 				if (!re.test(args)) {
-					message.reply("you entered the wrong song number or character. Please only enter 1-5 for song number to be queued.");
+					message.sendMessage("you entered the wrong song number or character. Please only enter 1-5 for song number to be queued.");
 				} else {
 					let choice = ytResultAdd[args - 1];
 					getID(choice).then(id => {
 						if (id) {
 							queue.push(id);
 							getYouTubeResultsId(choice, 1).then(ytResults => {
-								message.reply(`added to queue **${ytResults[0]}**`);
+								message.sendMessage(`added to queue **${ytResults[0]}**`);
 								songsQueue.push(ytResults[0]);
 							}).catch(error => console.log(error));
 						}
@@ -244,21 +244,21 @@ bot.on("message", async message => {
 					youtubeSearched = false;
 				}
 			} else {
-				message.reply("you need to use !yt [search term] command first to add song from the list to the queue.");
+				message.sendMessage("you need to use !yt [search term] command first to add song from the list to the queue.");
 			}
 			break;
 
 		case "v":
 			if (args.length == 0 && dispatcher) {
-				message.reply(`current volume is ${dispatcher.volume}. Type !vol [percentage - 0 to 200] to set music volume.`);
+				message.sendMessage(`current volume is ${dispatcher.volume}. Type !vol [percentage - 0 to 200] to set music volume.`);
 			} else if (args.length > 0 && regVol.test(args) == true && dispatcher) {
 				dispatcher.setVolume(args * 0.01);
-				message.reply(`music volume has been set to ${args}%.`);
+				message.sendMessage(`music volume has been set to ${args}%.`);
 				console.log(dispatcher.volume);
 			} else if (!regVol.test(args) && dispatcher) {
-				message.reply("you need to enter a number in 0-200 range.");
+				message.sendMessage("you need to enter a number in 0-200 range.");
 			} else {
-				message.reply("you can only set music volume if music is playing.");
+				message.sendMessage("you can only set music volume if music is playing.");
 			}
 			break;
 
@@ -392,7 +392,7 @@ if (message.content.startsWith(adminprefix + 'b')) {
   if (message.content.startsWith(adminprefix + 'z')) {
 bot.user.setUsername(argresult).then
     message.channel.sendMessage(`**${argresult}** : تم تغيير أسم البوت إلى`)
-return message.reply("**لا يمكنك تغيير الاسم يجب عليك الانتظآر لمدة ساعتين . **");//حقوق IiKaReeeM ...
+return message.sendMessage("**لا يمكنك تغيير الاسم يجب عليك الانتظآر لمدة ساعتين . **");//حقوق IiKaReeeM ...
 } else
   if (message.content.startsWith(adminprefix + 'g')) {
 bot.user.setAvatar(argresult);//حقوق IiKaReeeM ...

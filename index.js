@@ -279,43 +279,30 @@ bot.on("message", async message => {
 		<a:Dance:512758054195036160> <a:dance:512761910714957854> <a:pepe1:512762416157818890>
   
   
-  ${prefix}p ⇏ لتشغيل أغنية برآبط أو بأسم
-  
-  ${prefix}s ⇏ لتجآوز الأغنية الحآلية
-  
-  ${prefix}pause ⇏ إيقآف الأغنية مؤقتا
-  
-  ${prefix}resume ⇏ لموآصلة الإغنية بعد إيقآفهآ مؤقتا
-  
-  ${prefix}v ⇏ لتغيير درجة الصوت 100 - 0
-  
-  ${prefix}stop ⇏ لإخرآج البوت من الروم
-  
-  ${prefix}np ⇏ لمعرفة الأغنية المشغلة حآليا
-  
-  ${prefix}q ⇏ لمعرفة قآئمة التشغيل
-  
-  •••【 أوامر خاصة بالبوت لا تحاول تلعب فيهم يا فلة ..】•••
-  
-  
-  ${prefix}b ⇏ تغيير بلاينق البوت
-  
-  ${prefix}z ⇏ تغيير أسم البوت
-  
-  ${prefix}g ⇏ تغير صورة البوت
-  
-  ${prefix}t ⇏ تغيير تويتش البوت
-  
+		!skip: لتخطي الاغنية الحالية
+
+		!queue: لرؤية الاغانية التي فالطابور
+		
+		!queue remove [song number]: لازالة الاغنية المحددة من الطابور
+		
+		!queue clear: لمسح كل الطابور
+		
+		!repeat: لتكرار الاغنية
+		
+		!stop: لأيقاف البوت 
+	
+		!yt [search term]: البحث فاليوتيوب وعرض اول 5 نتائج
+		
+		!add [search result number]: لاضافة اغنية من قائمة البحث
+		
+		!vol [percentage]: لتحديد درجة الصوت
   `)
 	 message.channel.sendEmbed(embed)
 	  
 	
 			   break;
 
-		case "commands":
-			message.channel.send("```cs\n" + commandsList + "\n```");
-			break;
-
+		
 
 	}
 });

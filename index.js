@@ -202,6 +202,7 @@ bot.on("message", async message => {
 		case "stop":
 			dispatcher.end();
 			setTimeout(() => voiceChannel.leave(), 1000);
+			
 			break;
 
 		case "yt":
@@ -301,6 +302,7 @@ function playMusic(id, message) {
 					isPlaying = false;
 				} else {
 					setTimeout(() => playMusic(queue[0], message), 15000);
+					message.channel.sendMessage("انتهى الطابور")
 				}
 			});
 		})

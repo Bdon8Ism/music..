@@ -92,7 +92,7 @@ bot.on("message", async message => {
 			}
 			break;
 
-		case "play":
+		case ['play','p']:
 			if (args.length == 0 && queue.length > 0) {
 				if (!message.member.voiceChannel) {
 					message.reply("you need to be in a voice channel to play music. Please, join one and try again.");
@@ -132,7 +132,7 @@ bot.on("message", async message => {
 			}
 			break;
 
-		case "skip":
+		case ['skip','s']:
 			console.log(queue);
 			if (queue.length === 1) {
 				message.reply("queue is empty now, type !play [song name] or !yt [song name] to play/search new songs!");
@@ -155,7 +155,7 @@ bot.on("message", async message => {
 			}
 			break;
 
-		case "queue":
+		case ['skip','s']:
 			if (queue.length === 0) { // if there are no songs in the queue, send message that queue is empty
 				message.reply("queue is empty, type !play or !yt to play/search new songs!");
 			} else if (args.length > 0 && args[0] == 'remove') { // if arguments are provided and first one is remove
@@ -200,7 +200,7 @@ bot.on("message", async message => {
 			}
 			break;
 
-		case "repeat":
+		case ['repeat','rep']:
 			if (isPlaying) {
 				queue.splice(1, 0, queue[0]);
 				songsQueue.splice(1, 0, songsQueue[0]);
@@ -258,7 +258,7 @@ bot.on("message", async message => {
 			}
 			break;
 
-		case "vol":
+		case ['v','vol','volume']:
 			if (args.length == 0 && dispatcher) {
 				message.reply(`current volume is ${dispatcher.volume}. Type !vol [percentage - 0 to 200] to set music volume.`);
 			} else if (args.length > 0 && regVol.test(args) == true && dispatcher) {

@@ -9,6 +9,7 @@ const fetchVideoInfo = require("youtube-info");
 const prefix = botSettings.prefix;
 const ytApiKey = botSettings.ytApiKey;
 const youtube = new YouTube(ytApiKey);
+const dispatcher = songsQueue.connection.playStream(ytdl(song.url))
 
 const bot = new Discord.Client({
 	disableEveryone: true
